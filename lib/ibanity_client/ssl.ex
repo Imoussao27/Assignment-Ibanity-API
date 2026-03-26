@@ -5,9 +5,8 @@ defmodule IbanityClient.SSL do
 
   def opts do
 
-    #Load env variable
-    env        = Dotenvy.source!([".env"], overwrite: true)
-    passphrase = env["IBANITY_CERT_PASSPHRASE"]
+    #Retrieve data from the global config
+    passphrase = IbanityClient.Config.cert_passphrase()
 
     #Certificates generated from Ibanity (mTLS)
     [

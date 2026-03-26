@@ -8,8 +8,8 @@ defmodule IbanityClient do
   IbanityClient.CallbackServer.start()
 
   #Load env variable
-  env = Dotenvy.source!([".env"])
-  client_id = env["IBANITY_CLIENT_ID"]
+  IbanityClient.Config.load!() # crash if there is no .env file
+  client_id = IbanityClient.Config.client_id()
 
   #Generate PKCE
   verifier  = :crypto.strong_rand_bytes(64) |> Base.url_encode64(padding: false) # random 64 byte string encoded in base64

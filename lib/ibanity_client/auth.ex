@@ -6,11 +6,10 @@ defmodule IbanityClient.Auth do
 
   def get_user_token(code, verifier) do
 
-    #Load env variable (sensitive data)
-    env = Dotenvy.source!([".env"])
-    client_id     = env["IBANITY_CLIENT_ID"]
-    client_secret = env["IBANITY_CLIENT_SECRET"]
-    redirect_uri  = env["IBANITY_REDIRECT_URI"]
+    #Retrieve data from the global config (sensitive data)
+    client_id     = IbanityClient.Config.client_id()
+    client_secret = IbanityClient.Config.client_secret()
+    redirect_uri  = IbanityClient.Config.redirect_uri()
 
     #Build the request body for the token exchange
     body = URI.encode_query(%{
